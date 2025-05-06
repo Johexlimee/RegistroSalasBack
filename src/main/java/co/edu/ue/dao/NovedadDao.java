@@ -23,9 +23,11 @@ public class NovedadDao implements INovedadDao {
 	}
 
 	@Override
-	public boolean postNovedad(Novedad novedad) {
-		return jpa.save(novedad).equals(null);
+	public Novedad postNovedad(Novedad novedad) {
+	    return jpa.save(novedad); // ✅ Ahora devuelve la novedad creada
 	}
+
+
 
 	@Override
 	public Novedad updateNovedad(Novedad novedad, int id) {

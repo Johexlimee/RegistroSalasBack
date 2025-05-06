@@ -25,9 +25,10 @@ public class NovedadService implements INovedadService {
 	}
 
 	@Override
-	public boolean postNovedad(Novedad novedad) {
-		return dao.postNovedad(novedad);
+	public Novedad postNovedad(Novedad novedad) {
+	    return dao.postNovedad(novedad);
 	}
+
 
 	@Override
 	public Novedad updateNovedad(Novedad novedad, int id) {

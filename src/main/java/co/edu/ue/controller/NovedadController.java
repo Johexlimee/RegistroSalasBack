@@ -49,20 +49,25 @@ public class NovedadController {
     }
 	
 	//Agregar Novedad
-	 @PostMapping(value="Agregar-Novedad")
-	    public ResponseEntity<Void> postNovedads(@RequestBody Novedad novedad) {
-	        if (service.postNovedad(novedad)) {
-	            return new ResponseEntity<Void>(HttpStatus.CREATED);
-	        }
-	        return new ResponseEntity<Void>(HttpStatus.CONFLICT);
+	@PostMapping(value="Agregar-Novedad")
+	public ResponseEntity<Novedad> postNovedads(@RequestBody Novedad novedad) {
+	    System.out.println("Datos recibidos en el backend: " + novedad);
+	    
+	    Novedad nuevaNovedad = service.postNovedad(novedad);
+	    if (nuevaNovedad != null) {
+	        return new ResponseEntity<Novedad>(nuevaNovedad, HttpStatus.CREATED); 
 	    }
+	    return new ResponseEntity<>(HttpStatus.CONFLICT);
+	}
+
+
 	 
 	 //Editar Novedad
-	 @Operation(summary="actualiza la informacion del cursos")
-		@PutMapping(value="course-id")
-		public ResponseEntity<Novedad>  updateNovedads(@RequestBody Novedad novedad, @RequestParam int id) {
-			return new ResponseEntity<Novedad> (service.updateNovedad(novedad, id),HttpStatus.CREATED);
-		}
+	@Operation(summary="actualiza la informacion del cursos")
+	@PutMapping(value="Novedad-id")
+	public ResponseEntity<Novedad>  updateNovedads(@RequestBody Novedad novedad, @RequestParam int id) {
+		return new ResponseEntity<Novedad> (service.updateNovedad(novedad, id),HttpStatus.CREATED);
+	}
 	 
 	
 
