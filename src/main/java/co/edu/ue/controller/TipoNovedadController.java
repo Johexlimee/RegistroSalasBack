@@ -1,5 +1,7 @@
 package co.edu.ue.controller;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -52,13 +54,18 @@ public class TipoNovedadController {
     }
 	
 	//Agregar equipo
-	 @PostMapping(value="/agregar-novedad")
-	    public ResponseEntity<Void> postTipoNovedad(@RequestBody TipoNovedad tipoNovedad) {
-	        if (service.postTipoNovedad(tipoNovedad)) {
-	            return new ResponseEntity<Void>(HttpStatus.CREATED);
-	        }
-	        return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-	 }
+	@PostMapping(value="/agregar-novedad")
+	public ResponseEntity<Map<String, Object>> postTipoNovedad(@RequestBody TipoNovedad tipoNovedad) {
+	    Map<String, Object> response = new HashMap<>();
+
+	    if (service.postTipoNovedad(tipoNovedad)) {
+	        response.put("mensaje", "Registro creado exitosamente");
+	        response.put("tipoNovedad", tipoNovedad);
+	        return new ResponseEntity<>(response, HttpStatus.CREATED);
+	    }
+	    response.put("mensaje", "Conflicto al registrar");
+	    return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+	}
 	 
 	 //Editar equipo
 	 @Operation(summary="actualiza la informacion del cursos")

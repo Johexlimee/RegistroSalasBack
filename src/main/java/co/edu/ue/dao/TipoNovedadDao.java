@@ -25,9 +25,15 @@ public class TipoNovedadDao implements ITipoNovedadDao {
 
 	@Override
 	public boolean postTipoNovedad(TipoNovedad tipoNovedad) {
-		if(jpa.save(tipoNovedad).equals(null))
-			return true; return false;
+	    try {
+	        jpa.save(tipoNovedad);
+	        return true; // Registro exitoso
+	    } catch (Exception e) {
+	        System.err.println("Error al guardar TipoNovedad: " + e.getMessage());
+	        return false; // Fallo en la inserción
+	    }
 	}
+
 
 	@Override
 	public TipoNovedad updateTipoNovedad(TipoNovedad tipoNovedad, int id) {
